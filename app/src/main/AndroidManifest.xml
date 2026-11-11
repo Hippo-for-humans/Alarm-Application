@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Разрешение на перехват уведомлений -->
+    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
+    <!-- Базовое разрешение на работу foreground-сервиса -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- Разрешение для типа foreground-сервиса "specialUse" (Android 14+) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <!-- Разрешение на показ полноэкранного уведомления поверх блокировки -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <!-- Разрешение на показ обычных уведомлений (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:allowBackup="true"
+        android:label="My Alarm"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AlarmApplication">
+
+        <!-- Главный экран приложения -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Сервис для перехвата уведомлений от Telegram -->
+        <service
+            android:name=".NotificationListener"
+            android:label="Alarm Notification Listener"
+            android:exported="false"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <!-- Foreground-сервис для воспроизведения будильника -->
+        <service
+            android:name=".AlarmService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+        </service>
+
+    </application>
+
+</manifest>

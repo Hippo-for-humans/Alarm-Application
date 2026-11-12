@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Alarm"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Главный переключатель: разрешение на фоновый будильник -->
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchAlarmEnabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Активация будильника по уведомлениям"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Если выключено — фоновый будильник по сообщениям Telegram не сработает."
+            android:textSize="13sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Тестовый переключатель: прямой запуск/остановка звука -->
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchTestAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Проверка звука будильника"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Включите, чтобы сразу проверить громкость и мелодию. При сворачивании приложения звук остановится."
+            android:textSize="13sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Блок логов -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Состояние и последние события"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/textLogs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Загрузка..."
+            android:textSize="14sp"
+            android:fontFamily="monospace"
+            android:background="#F0F0F0"
+            android:padding="12dp" />
+
+    </LinearLayout>
+</ScrollView>

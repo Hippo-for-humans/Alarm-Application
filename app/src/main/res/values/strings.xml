@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">My Alarm</string>
+    <string name="accessibility_service_description">Сервис для остановки будильника при касании экрана. Не собирает и не передаёт никакие данные.</string>
 </resources>

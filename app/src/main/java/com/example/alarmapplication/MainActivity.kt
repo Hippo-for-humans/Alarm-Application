@@ -104,6 +104,14 @@ class MainActivity : AppCompatActivity() {
         return enabledListeners != null && enabledListeners.contains(packageName)
     }
 
+    private fun isAccessibilityServiceEnabled(): Boolean {
+        val accessibilityManager = getSystemService(ACCESSIBILITY_SERVICE) as android.view.accessibility.AccessibilityManager
+        val enabledServices = accessibilityManager.getEnabledAccessibilityServiceList(
+            android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_ALL_MASK
+        )
+        return enabledServices.any { it.id.contains(packageName) }
+    }
+
     private fun updateLogsDisplay() {
         val logs = prefs.getString(KEY_LOGS, "Нет событий")
         val listenerStatus = if (isNotificationListenerEnabled())
@@ -111,6 +119,13 @@ class MainActivity : AppCompatActivity() {
         else
             "⚠ Доступ к уведомлениям НЕ выдан.\n" +
             "Откройте: Настройки → Уведомления → Доступ к уведомлениям → My Alarm"
-        textLogs.text = "$listenerStatus\n\nПоследние события:\n$logs"
+    
+        val accessibilityStatus = if (isAccessibilityServiceEnabled())
+            "✅ Специальные возможности включены"
+        else
+            "⚠ Специальные возможности ВЫКЛЮЧЕНЫ.\n" +
+            "Откройте: Настройки → Специальные возможности → My Alarm → Включить"
+    
+        textLogs.text = "$listenerStatus\n\n$accessibilityStatus\n\nПоследние события:\n$logs"
     }
 }

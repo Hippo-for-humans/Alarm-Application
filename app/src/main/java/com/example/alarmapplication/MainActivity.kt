@@ -105,11 +105,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isAccessibilityServiceEnabled(): Boolean {
-        val accessibilityManager = getSystemService(ACCESSIBILITY_SERVICE) as android.view.accessibility.AccessibilityManager
-        val enabledServices = accessibilityManager.getEnabledAccessibilityServiceList(
-            android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_ALL_MASK
-        )
-        return enabledServices.any { it.id.contains(packageName) }
+        // 1. Проверяем, что глобальный переключатель специальных возможностей включен
+        val accessibilityEnabled = try {
+            Settings.Secure.getInt(
+                contentResolver,
+                Settings.Secure.ACCESSIBILITY_ENABLED
+            )
+        } catch (e: Settings.SettingNotFoundException) {
+            0
+        }
+        if (accessibilityEnabled != 1) return false
+    
+        // 2. Получаем список всех включенных служб
+        val enabledServices = Settings.Secure.getString(
+            contentResolver,
+            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ) ?: return false
+    
+        // 3. Проверяем, есть ли в списке наша служба
+        val targetService = "$packageName/${UserActivityService::class.java.canonicalName}"
+        val splitter = android.text.TextUtils.SimpleStringSplitter(':')
+        splitter.setString(enabledServices)
+        while (splitter.hasNext()) {
+            if (splitter.next().equals(targetService, ignoreCase = true)) {
+                return true
+            }
+        }
+        return false
     }
 
     private fun updateLogsDisplay() {

@@ -67,7 +67,8 @@
             android:text="Загрузка..."
             android:textSize="14sp"
             android:fontFamily="monospace"
-            android:background="#F0F0F0"
+            android:background="?attr/colorSurfaceVariant"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:padding="12dp" />
 
     </LinearLayout>

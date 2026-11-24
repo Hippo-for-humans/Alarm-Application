@@ -20,7 +20,7 @@ android {
         applicationId = "com.example.alarmapplication"
         minSdk = 26
         targetSdk = 35
-        versionCode = 7
+        versionCode = 8
         versionName = "1.11"
     }
 
